@@ -1,3 +1,16 @@
+import java.util.Properties
+
+val props = Properties().apply {
+    file("$rootDir/local.properties").inputStream().use { load(it) }
+}
+val mapsApiKey = props.getProperty("MAPS_API_KEY") ?: ""
+
+android {
+    defaultConfig {
+        manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey
+    }
+}
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
